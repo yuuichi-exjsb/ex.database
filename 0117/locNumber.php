@@ -38,29 +38,30 @@ if ($addr != "")
 <?php
 if ($addr != "") {
     echo "<hr>\n";
-    if (!($row = $stmt->fetch())) {
-        // 行が１つもなかったとき
-        echo "<p>該当する住所がありません</p>\n";
-    }
-    else {
+    if ($row = $stmt->fetch()) {
         // 問合せ結果の表示
         echo "<p>検索結果</p>";
- 
         echo "<table border='1'>\n";
         echo "<tr>\n";
+        echo "<td>" . $row[0] . "</td>\n";
+        echo "<td>" . $row[1]. "</td>\n";
+        echo "</tr>\n";
         // 結果を1行ずつ取り出して表示する
     while ($row = $stmt->fetch())
     {
         echo "<tr>\n";
-        echo "<td>" . $row['zipcode'] . "</td>\n";
-        echo "<td>" . $row['addr']. "</td>\n";
+        echo "<td>" . $row[0] . "</td>\n";
+        echo "<td>" . $row[1]. "</td>\n";
         echo "</tr>\n";
     }
         echo "</table>\n";
  
         // データベースとの接続を解除する
         $dbh = null;
-     
- 
+    
+    }
+    else {
+        // 行が１つもなかったとき
+        echo "<p>該当する住所がありません</p>\n";
     }
 }
